@@ -158,3 +158,33 @@ html {
   color: #ffffff;
   cursor: pointer;
 }
+
+.lista {
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  list-style: none;
+  padding: 0.6em 2em;
+  background: #ffffff;
+  border-radius: 10px;
+  margin: 0 0 1em;
+  width: 100%;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: 1em;
+  font-size: 20px;
+}
+
+.item strong {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #c5965f;
+  font-weight: 400;
+}
