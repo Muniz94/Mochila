@@ -5,10 +5,13 @@ form.addEventListener('submit', evento => {
   // evento é o submit (os dados buscados do formulário)
   evento.preventDefault(); // previne o comportamento padrão do formulário (enviar os dados para a própria página)
 
-  criaElemento(
-    evento.target.elements['nome'].value,
-    evento.target.elements['qtde'].value
-  );
+  const nome = evento.target.elements['nome'];
+  const quantidade = evento.target.elements['qtde'];
+
+  criaElemento(nome.value, quantidade.value);
+
+  nome.value = '';
+  quantidade.value = '';
 });
 
 function criaElemento(nome, qtde) {
@@ -23,4 +26,7 @@ function criaElemento(nome, qtde) {
   novoItem.innerHTML += nome;
 
   lista.appendChild(novoItem);
+
+  localStorage.setItem('nome', nome);
+  localStorage.setItem('Quantidade', qtde); 
 }
