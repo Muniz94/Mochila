@@ -14,3 +14,13 @@ function criaElemento(nome, qtde) {
   console.log(nome);
   console.log(qtde);
 }
+
+//<li class="item"><strong>3</strong>Camisa</li>
+const novoItem = document.createElement('li');
+novoItem.classList.add('item');
+
+const numeroItem = document.createElement('strong');
+numeroItem.innerHTML = qtde;
+
+novoItem.appendChild(numeroItem); // não pode ser innerHTML
+novoItem.innerHTML += nome;
