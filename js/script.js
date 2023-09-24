@@ -13,7 +13,16 @@ form.addEventListener('submit', evento => {
   const nome = evento.target.elements['nome'];
   const quantidade = evento.target.elements['qtde'];
 
+  const itemAtual = {
+    nome: nome,
+    quantidade: qtde
+  };
+
   criaElemento(nome.value, quantidade.value);
+
+  itens.push(itemAtual);
+
+  localStorage.setItem('itens', JSON.stringify(itens)); // stringify transforma JSON em texto
 
   nome.value = '';
   quantidade.value = '';
@@ -31,13 +40,5 @@ function criaElemento(nome, qtde) {
   novoItem.innerHTML += nome;
 
   lista.appendChild(novoItem);
-
-  const itemAtual = {
-    nome: nome,
-    quantidade: qtde
-  };
-
-  itens.push(itemAtual);
-
-  localStorage.setItem('itens', JSON.stringify(itens)); // stringify transforma JSON em texto
 }
+ 
