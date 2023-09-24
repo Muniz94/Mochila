@@ -20,9 +20,16 @@ form.addEventListener('submit', evento => {
     quantidade: qtde.value
   };
 
-  criaElemento(itemAtual);
+  if (existe) {
+    itemAtual.id = existe.id;
+    console.log(existe.id);
+  } else {
+    itemAtual.id = itens.length;
 
-  itens.push(itemAtual);
+    criaElemento(itemAtual);
+
+    itens.push(itemAtual);
+  }
 
   localStorage.setItem('itens', JSON.stringify(itens)); // stringify transforma JSON em texto
 
