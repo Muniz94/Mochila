@@ -27,6 +27,10 @@ function criaElemento(nome, qtde) {
 
   lista.appendChild(novoItem);
 
-  localStorage.setItem('nome', nome);
-  localStorage.setItem('Quantidade', qtde); 
+  const itemAtual = {
+    nome: nome,
+    quantidade: qtde
+  };
+
+  localStorage.setItem('item', JSON.stringify(itemAtual));
 }
