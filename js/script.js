@@ -14,11 +14,11 @@ form.addEventListener('submit', evento => {
   const quantidade = evento.target.elements['qtde'];
 
   const itemAtual = {
-    nome: nome,
-    quantidade: qtde
+    nome: nome.value,
+    quantidade: qtde.value
   };
 
-  criaElemento(nome.value, quantidade.value);
+  criaElemento(itemAtual);
 
   itens.push(itemAtual);
 
@@ -28,17 +28,16 @@ form.addEventListener('submit', evento => {
   quantidade.value = '';
 });
 
-function criaElemento(nome, qtde) {
+function criaElemento(item) {
   //<li class="item"><strong>3</strong>Camisa</li>
   const novoItem = document.createElement('li');
   novoItem.classList.add('item');
 
   const numeroItem = document.createElement('strong');
-  numeroItem.innerHTML = qtde;
+  numeroItem.innerHTML = item.quantidade;
 
   novoItem.appendChild(numeroItem); // não pode ser innerHTML
-  novoItem.innerHTML += nome;
+  novoItem.innerHTML += item.nome;
 
   lista.appendChild(novoItem);
 }
- 
