@@ -1,8 +1,10 @@
 const form = document.getElementById('novoItem'); // "pega" o elemento
 const lista = document.getElementById('lista');
-const itens = localStorage.getItem('itens') || [];
+const itens = JSON.parse(localStorage.getItem('itens')) || []; // parse transforma texto em JSON
 
-console.log(itens);
+itens.forEach(elemento => {
+  console.log(elemento.nome, elemento.quantidade);
+});
 
 form.addEventListener('submit', evento => {
   // evento é o submit (os dados buscados do formulário)
@@ -37,5 +39,5 @@ function criaElemento(nome, qtde) {
 
   itens.push(itemAtual);
 
-  localStorage.setItem('itens', JSON.stringify(itens));
+  localStorage.setItem('itens', JSON.stringify(itens)); // stringify transforma JSON em texto
 }
