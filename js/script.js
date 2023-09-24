@@ -3,7 +3,7 @@ const lista = document.getElementById('lista');
 const itens = JSON.parse(localStorage.getItem('itens')) || []; // parse transforma texto em JSON
 
 itens.forEach(elemento => {
-  console.log(elemento.nome, elemento.quantidade);
+  criaElemento(elemento);
 });
 
 form.addEventListener('submit', evento => {
