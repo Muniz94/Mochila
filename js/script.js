@@ -66,5 +66,9 @@ function botaoDeleta() {
   const elementoBotao = document.createElement("button");
   elementoBotao.innerText = "X";
 
+  elementoBotao.addEventListener("click", function() { // não pode ser arrowFuction pois essa não tem o this e não é possível saber o elemento clicado
+    console.log(this);
+  })
+
   return elementoBotao;
 }
