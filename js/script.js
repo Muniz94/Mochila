@@ -49,7 +49,10 @@ function criaElemento(item) {
   numeroItem.innerHTML = item.quantidade;
   numeroItem.dataset.id = item.id; // a cada elemento(item) criado é gerado um id
   novoItem.appendChild(numeroItem); // não pode ser innerHTML
+
   novoItem.innerHTML += item.nome;
+
+  novoItem.appendChild(botaoDeleta);
 
   lista.appendChild(novoItem);
 }
