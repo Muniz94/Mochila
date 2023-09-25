@@ -52,7 +52,7 @@ function criaElemento(item) {
 
   novoItem.innerHTML += item.nome;
 
-  novoItem.appendChild(botaoDeleta);
+  novoItem.appendChild(botaoDeleta());
 
   lista.appendChild(novoItem);
 }
