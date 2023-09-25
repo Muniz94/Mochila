@@ -67,8 +67,12 @@ function botaoDeleta() {
   elementoBotao.innerText = "X";
 
   elementoBotao.addEventListener("click", function() { // não pode ser arrowFuction pois essa não tem o this e não é possível saber o elemento clicado
-    console.log(this);
+    deletaElemento(this.parentNode); //Se colocar só o this é removido o botão e não a tag em si
   })
 
   return elementoBotao;
+}
+
+function deletaElemento(tag) {
+  tag.remove();
 }
