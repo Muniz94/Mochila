@@ -58,3 +58,10 @@ function atualizaElemento(item) {
   document.querySelector("[data-id='" + item.id + "']").innerHTML =
     item.quantidade;
 }
+
+function botaoDeleta() {
+  const elementoBotao = document.createElement("button");
+  elementoBotao.innerText = "X";
+
+  return elementoBotao;
+}
