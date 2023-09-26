@@ -27,7 +27,7 @@ form.addEventListener('submit', evento => {
 
     itens[existe.id] = itemAtual; // caso o conteúdo já exista no array, troco o conteúdo no mesmo e salvo no localStorage
   } else {
-    itemAtual.id = itens.length;
+    itemAtual.id = itens[itens.length - 1] ? (itens[itens.length - 1]).id + 1 : 0;
 
     criaElemento(itemAtual);
 
