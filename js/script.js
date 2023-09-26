@@ -13,9 +13,21 @@ form.addEventListener('submit', evento => {
   const nome = evento.target.elements['nome'];
   const quantidade = evento.target.elements['qtde'];
 
+  if (nome.value == "" || isNaN(nome.value) == false){
+    nome.value = "";
+    alert("Digite um nome!");
+    nome.focus();
+    return;
+  } else 
+  if (quantidade.value == ""){
+    quantidade.value = "";
+    alert("Digite uma quantidade!");
+    quantidade.focus();
+    return;
+  }
+
   const existe = itens.find(elemento => elemento.nome.toUpperCase() === nome.value.toUpperCase()); // verifica se o nome no array 'itens' é exatamente igual ao nome digitado
   
-
   const itemAtual = {
     nome: nome.value,
     quantidade: qtde.value
@@ -39,6 +51,8 @@ form.addEventListener('submit', evento => {
 
   nome.value = '';
   quantidade.value = '';
+
+  nome.focus();
 });
 
 function criaElemento(item) {
