@@ -76,5 +76,7 @@ function botaoDeleta(id) {
 function deletaElemento(tag, id) {
   tag.remove();
 
-  console.log(id);
+  itens.splice(itens.findIndex(elemento => elemento.id === id), 1);
+
+  console.log(itens);
 }
