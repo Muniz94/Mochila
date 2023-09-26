@@ -52,7 +52,7 @@ function criaElemento(item) {
 
   novoItem.innerHTML += item.nome;
 
-  novoItem.appendChild(botaoDeleta());
+  novoItem.appendChild(botaoDeleta(item.id));
 
   lista.appendChild(novoItem);
 }
@@ -62,17 +62,19 @@ function atualizaElemento(item) {
     item.quantidade;
 }
 
-function botaoDeleta() {
+function botaoDeleta(id) {
   const elementoBotao = document.createElement("button");
   elementoBotao.innerText = "X";
 
   elementoBotao.addEventListener("click", function() { // não pode ser arrowFuction pois essa não tem o this e não é possível saber o elemento clicado
-    deletaElemento(this.parentNode); //Se colocar só o this é removido o botão e não a tag em si
+    deletaElemento(this.parentNode, id); //Se colocar só o this é removido o botão e não a tag em si
   })
 
   return elementoBotao;
 }
 
-function deletaElemento(tag) {
+function deletaElemento(tag, id) {
   tag.remove();
+
+  console.log(id);
 }
