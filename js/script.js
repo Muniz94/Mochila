@@ -13,7 +13,8 @@ form.addEventListener('submit', evento => {
   const nome = evento.target.elements['nome'];
   const quantidade = evento.target.elements['qtde'];
 
-  const existe = itens.find(elemento => elemento.nome === nome.value); // verifica se o nome no array 'itens' é exatamente igual ao nome digitado
+  const existe = itens.find(elemento => elemento.nome.toUpperCase() === nome.value.toUpperCase()); // verifica se o nome no array 'itens' é exatamente igual ao nome digitado
+  
 
   const itemAtual = {
     nome: nome.value,
