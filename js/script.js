@@ -2,9 +2,9 @@ const form = document.getElementById('novoItem'); // "pega" o elemento
 const lista = document.getElementById('lista');
 const itens = JSON.parse(localStorage.getItem('itens')) || []; // parse transforma texto em JSON
 
-itens.forEach(elemento => {
+/*itens.forEach(elemento => {
   criaElemento(elemento);
-});
+});*/
 
 const html = {
   get (elemento) {
@@ -70,8 +70,21 @@ const controles = {
 }
 
   const list = { 
+    criar() {
+      let pagina = estado.pagina - 1;
+      let inicio = pagina * estado.ItensPorPagina;
+      let fim = inicio + estado.ItensPorPagina;
+
+      const itensPaginados = itens.slice(inicio, fim);
+      itensPaginados.forEach(elemento => {
+        criaElemento(elemento);
+      });
+      //criaElemento(JSON.stringify(itens));
+    },
     atualiza() {
     html.get('.lista').innerHTML = "";
+
+    list.criar();
   }
 }
 
