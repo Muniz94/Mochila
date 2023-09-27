@@ -188,3 +188,34 @@ html {
   background: #c5965f;
   font-weight: 400;
 }
+
+#novoItem .paginacao {
+  display: flex;
+  align-items: center; /* alinha os elementos no eixo X */
+  justify-content: center; /* alinha no centro da tela(no centro do form 'novoItem' no caso)*/
+  margin-top: 10px;
+}
+
+#novoItem .paginacao div {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 23px;
+}
+
+#novoItem .paginacao div:not(.numeros),
+#novoItem .paginacao div.numeros div{
+  width: 40px;
+  height: 40px;
+
+  border: solid 1px rgba(255, 255, 255, 0.194);
+}
+
+#novoItem .paginacao div:hover{
+  color : #40112d;
+  font-weight: bolder;
+  background: #cca16a;
+}
