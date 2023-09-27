@@ -6,6 +6,86 @@ itens.forEach(elemento => {
   criaElemento(elemento);
 });
 
+const html = {
+  get (elemento) {
+    return document.querySelector(elemento);
+  }
+}
+
+let ItensPorPagina = 5;
+const estado = {
+  pagina: 1,
+  ItensPorPagina,
+  totalPaginas: 50 / ItensPorPagina,
+}
+
+const controles = {
+  proximo() {
+    estado.pagina++;
+
+    const ultPagina = estado.pagina > estado.totalPaginas
+    if (ultPagina) {
+      estado.pagina--;
+    }
+  },
+  anterior() {
+    estado.pagina--;
+
+    if (estado.pagina < 1){
+      estado.pagina++;
+    }
+  },
+  IrPara(pagina) {
+    if (pagina < 1){
+      pagina = 1;
+    }
+
+    estado.pagina = pagina;
+
+    if (pagina > estado.totalPaginas) {
+      estado.pagina = estado.totalPaginas;
+    }
+  },
+  criarListeners() {
+    html.get('.primeiro').addEventListener('click', () => {
+      controles.IrPara(1)
+      list.atualiza();
+    })
+
+    html.get('.ultimo').addEventListener('click', () => {
+      controles.IrPara(estado.totalPaginas);
+      list.atualiza();
+    })
+
+    html.get('.anterior').addEventListener('click', () => {
+      controles.anterior();
+      list.atualiza();
+    })
+
+    html.get('.prox').addEventListener('click', () => {
+      controles.proximo();
+      list.atualiza();
+    })
+  }
+}
+
+  const list = { 
+    atualiza() {
+    html.get('.lista').innerHTML = "";
+  }
+}
+
+function inicio() {
+  list.atualiza();
+  controles.criarListeners();
+}
+
+function atualiza() {
+  console.log(estado.pagina);
+}
+
+inicio();
+
 form.addEventListener('submit', evento => {
   // evento é o submit (os dados buscados do formulário)
   evento.preventDefault(); // previne o comportamento padrão do formulário (enviar os dados para a própria página)
@@ -94,40 +174,4 @@ function deletaElemento(tag, id) {
   itens.splice(itens.findIndex(elemento => elemento.id === id), 1);
 
   localStorage.setItem('itens', JSON.stringify(itens));
-}
-
-let ItensPorPagina = 5;
-const estado = {
-  pagina: 1,
-  ItensPorPagina,
-  totalPaginas: 50 / ItensPorPagina,
-}
-
-const controles = {
-  proximo() {
-    estado.pagina++;
-
-    const ultPagina = estado.pagina > estado.totalPaginas
-    if (ultPagina) {
-      estado.pagina--;
-    }
-  },
-  anterior() {
-    estado.pagina--;
-
-    if (estado.pagina < 1){
-      estado.pagina++;
-    }
-  },
-  IrPara(pagina){
-    if (pagina < 1){
-      pagina = 1;
-    }
-
-    estado.pagina = pagina;
-
-    if (pagina > estado.totalPaginas) {
-      estado.pagina = estado.totalPaginas;
-    }
-  }
 }
