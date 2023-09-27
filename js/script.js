@@ -95,3 +95,39 @@ function deletaElemento(tag, id) {
 
   localStorage.setItem('itens', JSON.stringify(itens));
 }
+
+let ItensPorPagina = 5;
+const estado = {
+  pagina: 1,
+  ItensPorPagina,
+  totalPaginas: 50 / ItensPorPagina,
+}
+
+const controles = {
+  proximo() {
+    estado.pagina++;
+
+    const ultPagina = estado.pagina > estado.totalPaginas
+    if (ultPagina) {
+      estado.pagina--;
+    }
+  },
+  anterior() {
+    estado.pagina--;
+
+    if (estado.pagina < 1){
+      estado.pagina++;
+    }
+  },
+  IrPara(pagina){
+    if (pagina < 1){
+      pagina = 1;
+    }
+
+    estado.pagina = pagina;
+
+    if (pagina > estado.totalPaginas) {
+      estado.pagina = estado.totalPaginas;
+    }
+  }
+}
