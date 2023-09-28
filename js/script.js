@@ -2,10 +2,6 @@ const form = document.getElementById('novoItem'); // "pega" o elemento
 const lista = document.getElementById('lista');
 const itens = JSON.parse(localStorage.getItem('itens')) || []; // parse transforma texto em JSON
 
-/*itens.forEach(elemento => {
-  criaElemento(elemento);
-});*/
-
 const html = {
   get (elemento) {
     return document.querySelector(elemento);
@@ -49,7 +45,7 @@ const controles = {
   criarListeners() {
     html.get('.primeiro').addEventListener('click', () => {
       controles.IrPara(1)
-      list.atualiza();
+      atualiza();
     })
 
     html.get('.ultimo').addEventListener('click', () => {
@@ -59,12 +55,12 @@ const controles = {
 
     html.get('.anterior').addEventListener('click', () => {
       controles.anterior();
-      list.atualiza();
+      atualiza();
     })
 
     html.get('.prox').addEventListener('click', () => {
       controles.proximo();
-      list.atualiza();
+      atualiza();
     })
   }
 }
@@ -79,7 +75,6 @@ const controles = {
       itensPaginados.forEach(elemento => {
         criaElemento(elemento);
       });
-      //criaElemento(JSON.stringify(itens));
     },
     atualiza() {
     html.get('.lista').innerHTML = "";
@@ -91,10 +86,12 @@ const controles = {
 function inicio() {
   list.atualiza();
   controles.criarListeners();
+  html.get('.numeros').innerHTML = `${estado.pagina}`;
 }
 
 function atualiza() {
-  console.log(estado.pagina);
+  list.atualiza();
+  html.get('.numeros').innerHTML = `${estado.pagina}`;
 }
 
 inicio();
