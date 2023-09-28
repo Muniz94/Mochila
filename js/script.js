@@ -1,6 +1,9 @@
 const form = document.getElementById('novoItem'); // "pega" o elemento
 const lista = document.getElementById('lista');
 const itens = JSON.parse(localStorage.getItem('itens')) || []; // parse transforma texto em JSON
+var PgCompleta = false;
+var estadosalvo;
+const maxItens = document.querySelector('#lista');
 
 const html = {
   get (elemento) {
@@ -50,7 +53,7 @@ const controles = {
 
     html.get('.ultimo').addEventListener('click', () => {
       controles.IrPara(estado.totalPaginas);
-      list.atualiza();
+      atualiza();
     })
 
     html.get('.anterior').addEventListener('click', () => {
@@ -74,7 +77,7 @@ const controles = {
       const itensPaginados = itens.slice(inicio, fim);
       itensPaginados.forEach(elemento => {
         criaElemento(elemento);
-      });
+      })
     },
     atualiza() {
     html.get('.lista').innerHTML = "";
@@ -91,6 +94,7 @@ function inicio() {
 
 function atualiza() {
   list.atualiza();
+  estadosalvo = estado.pagina;
   html.get('.numeros').innerHTML = `${estado.pagina}`;
 }
 
@@ -114,6 +118,20 @@ form.addEventListener('submit', evento => {
     alert("Digite uma quantidade!");
     quantidade.focus();
     return;
+  }
+
+  if (maxItens.children.length == 5 && estado.pagina == estadosalvo){
+    PgCompleta = true;
+    estado.pagina++;
+  }
+  else 
+  if (maxItens.children.length != 5 && estado.pagina != estadosalvo){
+    PgCompleta = false;
+  }
+  if (PgCompleta == true){
+    html.get('.lista').innerHTML = "";
+    list.criar();
+    atualiza();
   }
 
   const existe = itens.find(elemento => elemento.nome.toUpperCase() === nome.value.toUpperCase()); // verifica se o nome no array 'itens' é exatamente igual ao nome digitado
@@ -172,6 +190,11 @@ function botaoDeleta(id) {
   elementoBotao.innerText = "X";
 
   elementoBotao.addEventListener("click", function() { // não pode ser arrowFuction pois essa não tem o this e não é possível saber o elemento clicado
+    if (maxItens.children.length == 1){
+      estado.pagina--;
+      list.criar();
+      atualiza();
+    }
     deletaElemento(this.parentNode, id); //Se colocar só o this é removido o botão e não a tag em si
   })
 
