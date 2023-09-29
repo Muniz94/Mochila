@@ -2,11 +2,9 @@ const form = document.getElementById('novoItem'); // "pega" o elemento
 const lista = document.getElementById('lista');
 const itens = JSON.parse(localStorage.getItem('itens')) || []; // parse transforma texto em JSON
 var PgCompleta = false;
-var estadosalvo;
+var estadosalvo = 1;
 const maxItens = document.querySelector('#lista');
-/*var numeroItem;
-var Vetor = [];
-var i = 0;*/
+var arredondadoParaBaixo;
 
 const html = {
   get (elemento) {
@@ -50,13 +48,13 @@ const controles = {
   },
   criarListeners() {
     html.get('.primeiro').addEventListener('click', () => {
-      controles.IrPara(1)
+      controles.IrPara(1);
       atualiza();
     })
 
     
     html.get('.ultimo').addEventListener('click', () => {
-      let arredondadoParaBaixo = Math.floor(itens.length / 5)
+      arredondadoParaBaixo = Math.floor(itens.length / 5)
       controles.IrPara(arredondadoParaBaixo + 1);
       atualiza();
     })
@@ -101,7 +99,6 @@ function inicio() {
 
 function atualiza() {
   list.atualiza();
-  estadosalvo = estado.pagina;
   html.get('.numeros').innerHTML = `${estado.pagina}`;
 }
 
@@ -127,14 +124,12 @@ form.addEventListener('submit', evento => {
     return;
   }
 
-  if (maxItens.children.length == 5 && estado.pagina == estadosalvo){
+  if (maxItens.children.length == 5){
     PgCompleta = true;
     estado.pagina++;
   }
-  else 
-  if (maxItens.children.length != 5 && estado.pagina != estadosalvo){
-    PgCompleta = false;
-  }
+  arredondadoParaBaixo = Math.floor(itens.length / 5);
+  estado.pagina = arredondadoParaBaixo + 1;
   if (PgCompleta == true){
     html.get('.lista').innerHTML = "";
     list.criar();
@@ -186,21 +181,11 @@ function criaElemento(item) {
 
   lista.appendChild(novoItem); 
 
-  /*Vetor[i] = numeroItem.dataset.id;
-  i++;*/
 }
 
 function atualizaElemento(item) {
-  /*do {
-    i--;
-    if (maxItens.children.length > 1){
-      maxItens.children.length -= 1;
-    } else if (maxItens.children.length == 1){
-      estado.pagina--;
-    }
-  } while (item.id != Vetor[i]);*/
-  document.querySelector("[data-id='" + item.id + "']").innerHTML =
-  item.quantidade;
+    document.querySelector("[data-id='" + item.id + "']").innerHTML =
+    item.quantidade;
 }
 
 function botaoDeleta(id) {
