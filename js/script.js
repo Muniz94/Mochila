@@ -79,6 +79,12 @@ const controles = {
       let inicio = pagina * estado.ItensPorPagina;
       let fim = inicio + estado.ItensPorPagina;
 
+      arredondadoParaBaixo = Math.floor(itens.length / 5);
+      if (itens.length / 5 != 0)
+        estadosalvo = arredondadoParaBaixo + 1;
+      else
+        estadosalvo = arredondadoParaBaixo;
+
       const itensPaginados = itens.slice(inicio, fim);
       itensPaginados.forEach(elemento => {
         criaElemento(elemento);
@@ -193,12 +199,21 @@ function botaoDeleta(id) {
   elementoBotao.innerText = "X";
 
   elementoBotao.addEventListener("click", function() { // não pode ser arrowFuction pois essa não tem o this e não é possível saber o elemento clicado
-    if (maxItens.children.length == 1){
+    
+    if (maxItens.children.length == 5 && estadosalvo > estado.pagina){
+      deletaElemento(this.parentNode, id); //Se colocar só o this é removido o botão e não a tag em si
+      atualiza();
+    } else if (maxItens.children.length == 5 && estadosalvo == estado.pagina) {
+      deletaElemento(this.parentNode, id); //Se colocar só o this é removido o botão e não a tag em si
+      atualiza();
+    } else if (maxItens.children.length == 1 && estadosalvo == estado.pagina) {
+      deletaElemento(this.parentNode, id); //Se colocar só o this é removido o botão e não a tag em si
       estado.pagina--;
-      list.criar();
+      atualiza();
+    } else if (maxItens.children.length > 1 &&  maxItens.children.length <= 4 && estadosalvo == estado.pagina) {
+      deletaElemento(this.parentNode, id); //Se colocar só o this é removido o botão e não a tag em si
       atualiza();
     }
-    deletaElemento(this.parentNode, id); //Se colocar só o this é removido o botão e não a tag em si
   })
 
   return elementoBotao;
