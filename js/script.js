@@ -4,6 +4,9 @@ const itens = JSON.parse(localStorage.getItem('itens')) || []; // parse transfor
 var PgCompleta = false;
 var estadosalvo;
 const maxItens = document.querySelector('#lista');
+/*var numeroItem;
+var Vetor = [];
+var i = 0;*/
 
 const html = {
   get (elemento) {
@@ -51,8 +54,10 @@ const controles = {
       atualiza();
     })
 
+    
     html.get('.ultimo').addEventListener('click', () => {
-      controles.IrPara(estado.totalPaginas);
+      let arredondadoParaBaixo = Math.floor(itens.length / 5)
+      controles.IrPara(arredondadoParaBaixo + 1);
       atualiza();
     })
 
@@ -62,8 +67,10 @@ const controles = {
     })
 
     html.get('.prox').addEventListener('click', () => {
-      controles.proximo();
-      atualiza();
+      if (maxItens.children.length == 5){
+        controles.proximo();
+        atualiza();
+      }
     })
   }
 }
@@ -81,7 +88,7 @@ const controles = {
     },
     atualiza() {
     html.get('.lista').innerHTML = "";
-
+    
     list.criar();
   }
 }
@@ -168,7 +175,7 @@ function criaElemento(item) {
   const novoItem = document.createElement('li');
   novoItem.classList.add('item');
 
-  const numeroItem = document.createElement('strong');
+  numeroItem = document.createElement('strong');
   numeroItem.innerHTML = item.quantidade;
   numeroItem.dataset.id = item.id; // a cada elemento(item) criado é gerado um id
   novoItem.appendChild(numeroItem); // não pode ser innerHTML
@@ -177,12 +184,23 @@ function criaElemento(item) {
 
   novoItem.appendChild(botaoDeleta(item.id));
 
-  lista.appendChild(novoItem);
+  lista.appendChild(novoItem); 
+
+  /*Vetor[i] = numeroItem.dataset.id;
+  i++;*/
 }
 
 function atualizaElemento(item) {
+  /*do {
+    i--;
+    if (maxItens.children.length > 1){
+      maxItens.children.length -= 1;
+    } else if (maxItens.children.length == 1){
+      estado.pagina--;
+    }
+  } while (item.id != Vetor[i]);*/
   document.querySelector("[data-id='" + item.id + "']").innerHTML =
-    item.quantidade;
+  item.quantidade;
 }
 
 function botaoDeleta(id) {
