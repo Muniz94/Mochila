@@ -222,24 +222,34 @@ html {
 }
 
 /*media queries*/
-@media (max-width: 768px) and (min-width: 320px){
-  #lista .item {
-    width: 100%;
-    font-size: 0.7em;
+@media (max-width: 768px) and (min-width: 320px) {
+  .item {
+    font-size: 0.5em;
+  }
+  .item strong {
+    width: 20px;
+    height: 20px;
   }
   #novoItem label {
     font-size: 0.7em;
   }
   #novoItem input {
-    max-width: 100%;
+    font-size: 0.5em;
   }
-  .principal {
-    width: 100%;
+  #novoItem .paginacao div {
+    font-size: 0.8em;
   }
-  .paginacao {
-    width: 105px;
+  #novoItem .paginacao div:not(.numeros),
+  #novoItem .paginacao div.numeros div {
+    width: 0.7em;
+    height: 0.7em;
   }
   .mochila {
     display: none;
+  }
+  .item button {
+    width: 17px;
+    height: 11px;
+    font-size: 6px;
   }
 }
