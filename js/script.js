@@ -7,23 +7,23 @@ const maxItens = document.querySelector('#lista');
 var arredondadoParaBaixo;
 
 const html = {
-  get (elemento) {
+  get(elemento) {
     return document.querySelector(elemento);
   }
-}
+};
 
 let ItensPorPagina = 5;
 const estado = {
   pagina: 1,
   ItensPorPagina,
-  totalPaginas: 50 / ItensPorPagina,
-}
+  totalPaginas: 50 / ItensPorPagina
+};
 
 const controles = {
   proximo() {
     estado.pagina++;
 
-    const ultPagina = estado.pagina > estado.totalPaginas
+    const ultPagina = estado.pagina > estado.totalPaginas;
     if (ultPagina) {
       estado.pagina--;
     }
@@ -31,12 +31,12 @@ const controles = {
   anterior() {
     estado.pagina--;
 
-    if (estado.pagina < 1){
+    if (estado.pagina < 1) {
       estado.pagina++;
     }
   },
   IrPara(pagina) {
-    if (pagina < 1){
+    if (pagina < 1) {
       pagina = 1;
     }
 
@@ -50,52 +50,49 @@ const controles = {
     html.get('.primeiro').addEventListener('click', () => {
       controles.IrPara(1);
       atualiza();
-    })
+    });
 
-    
     html.get('.ultimo').addEventListener('click', () => {
-      arredondadoParaBaixo = Math.floor(itens.length / 5)
+      arredondadoParaBaixo = Math.floor(itens.length / 5);
       controles.IrPara(arredondadoParaBaixo + 1);
       atualiza();
-    })
+    });
 
     html.get('.anterior').addEventListener('click', () => {
       controles.anterior();
       atualiza();
-    })
+    });
 
     html.get('.prox').addEventListener('click', () => {
-      if (maxItens.children.length == 5){
+      if (maxItens.children.length == 5) {
         controles.proximo();
         atualiza();
       }
-    })
+    });
   }
-}
+};
 
-  const list = { 
-    criar() {
-      let pagina = estado.pagina - 1;
-      let inicio = pagina * estado.ItensPorPagina;
-      let fim = inicio + estado.ItensPorPagina;
+const list = {
+  criar() {
+    let pagina = estado.pagina - 1;
+    let inicio = pagina * estado.ItensPorPagina;
+    let fim = inicio + estado.ItensPorPagina;
 
-      arredondadoParaBaixo = Math.floor(itens.length / 5);
-      if (itens.length / 5 != 0)
-        estadosalvo = arredondadoParaBaixo + 1;
-      else
-        estadosalvo = arredondadoParaBaixo;
+    arredondadoParaBaixo = Math.floor(itens.length / 5);
+    if (itens.length / 5 != 0) estadosalvo = arredondadoParaBaixo + 1;
+    else estadosalvo = arredondadoParaBaixo;
 
-      const itensPaginados = itens.slice(inicio, fim);
-      itensPaginados.forEach(elemento => {
-        criaElemento(elemento);
-      })
-    },
-    atualiza() {
-    html.get('.lista').innerHTML = "";
-    
+    const itensPaginados = itens.slice(inicio, fim);
+    itensPaginados.forEach(elemento => {
+      criaElemento(elemento);
+    });
+  },
+  atualiza() {
+    html.get('.lista').innerHTML = '';
+
     list.criar();
   }
-}
+};
 
 function inicio() {
   list.atualiza();
@@ -117,33 +114,34 @@ form.addEventListener('submit', evento => {
   const nome = evento.target.elements['nome'];
   const quantidade = evento.target.elements['qtde'];
 
-  if (nome.value == "" || isNaN(nome.value) == false){
-    nome.value = "";
-    alert("Digite um nome!");
+  if (nome.value == '' || isNaN(nome.value) == false) {
+    nome.value = '';
+    alert('Digite um nome!');
     nome.focus();
     return;
-  } else 
-  if (quantidade.value == ""){
-    quantidade.value = "";
-    alert("Digite uma quantidade!");
+  } else if (quantidade.value == '') {
+    quantidade.value = '';
+    alert('Digite uma quantidade!');
     quantidade.focus();
     return;
   }
 
-  if (maxItens.children.length == 5){
+  if (maxItens.children.length == 5) {
     PgCompleta = true;
     estado.pagina++;
   }
   arredondadoParaBaixo = Math.floor(itens.length / 5);
   estado.pagina = arredondadoParaBaixo + 1;
-  if (PgCompleta == true){
-    html.get('.lista').innerHTML = "";
+  if (PgCompleta == true) {
+    html.get('.lista').innerHTML = '';
     list.criar();
     atualiza();
   }
 
-  const existe = itens.find(elemento => elemento.nome.toUpperCase() === nome.value.toUpperCase()); // verifica se o nome no array 'itens' é exatamente igual ao nome digitado
-  
+  const existe = itens.find(
+    elemento => elemento.nome.toUpperCase() === nome.value.toUpperCase()
+  ); // verifica se o nome no array 'itens' é exatamente igual ao nome digitado
+
   const itemAtual = {
     nome: nome.value,
     quantidade: qtde.value
@@ -156,7 +154,7 @@ form.addEventListener('submit', evento => {
 
     itens[itens.findIndex(elemento => elemento.id === existe.id)] = itemAtual; // caso o conteúdo já exista no array, troco o conteúdo no mesmo e salvo no localStorage
   } else {
-    itemAtual.id = itens[itens.length - 1] ? (itens[itens.length - 1]).id + 1 : 0;
+    itemAtual.id = itens[itens.length - 1] ? itens[itens.length - 1].id + 1 : 0;
 
     criaElemento(itemAtual);
 
@@ -185,22 +183,26 @@ function criaElemento(item) {
 
   novoItem.appendChild(botaoDeleta(item.id));
 
-  lista.appendChild(novoItem); 
-
+  lista.appendChild(novoItem);
 }
 
 function atualizaElemento(item) {
-    document.querySelector("[data-id='" + item.id + "']").innerHTML =
+  document.querySelector("[data-id='" + item.id + "']").innerHTML =
     item.quantidade;
 }
 
 function botaoDeleta(id) {
-  const elementoBotao = document.createElement("button");
-  elementoBotao.innerText = "X";
+  const elementoBotao = document.createElement('button');
+  elementoBotao.innerText = 'X';
 
-  elementoBotao.addEventListener("click", function() { // não pode ser arrowFuction pois essa não tem o this e não é possível saber o elemento clicado
-    
-    if (maxItens.children.length == 5 && estadosalvo > estado.pagina){
+  elementoBotao.addEventListener('click', function () {
+    // não pode ser arrowFuction pois essa não tem o this e não é possível saber o elemento clicado
+
+    if (estado.pagina == 1 && maxItens.children.length == 1) {
+      deletaElemento(this.parentNode, id);
+      estado.pagina++;
+    }
+    if (maxItens.children.length == 5 && estadosalvo > estado.pagina) {
       deletaElemento(this.parentNode, id); //Se colocar só o this é removido o botão e não a tag em si
       atualiza();
     } else if (maxItens.children.length == 5 && estadosalvo == estado.pagina) {
@@ -210,11 +212,15 @@ function botaoDeleta(id) {
       deletaElemento(this.parentNode, id); //Se colocar só o this é removido o botão e não a tag em si
       estado.pagina--;
       atualiza();
-    } else if (maxItens.children.length > 1 &&  maxItens.children.length <= 4 && estadosalvo == estado.pagina) {
+    } else if (
+      maxItens.children.length > 1 &&
+      maxItens.children.length <= 4 &&
+      estadosalvo == estado.pagina
+    ) {
       deletaElemento(this.parentNode, id); //Se colocar só o this é removido o botão e não a tag em si
       atualiza();
     }
-  })
+  });
 
   return elementoBotao;
 }
@@ -222,7 +228,10 @@ function botaoDeleta(id) {
 function deletaElemento(tag, id) {
   tag.remove();
 
-  itens.splice(itens.findIndex(elemento => elemento.id === id), 1);
+  itens.splice(
+    itens.findIndex(elemento => elemento.id === id),
+    1
+  );
 
   localStorage.setItem('itens', JSON.stringify(itens));
 }

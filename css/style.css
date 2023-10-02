@@ -222,7 +222,7 @@ html {
 }
 
 /*media queries*/
-@media (max-width: 768px) and (min-width: 320px) {
+@media (max-width: 768px) and (min-width: 320px){
   .item {
     font-size: 0.5em;
   }
@@ -236,14 +236,14 @@ html {
   #novoItem input {
     font-size: 0.5em;
   }
-  #novoItem .paginacao div {
+  #novoItem .paginacao div{
     font-size: 0.8em;
   }
   #novoItem .paginacao div:not(.numeros),
   #novoItem .paginacao div.numeros div {
-    width: 0.7em;
-    height: 0.7em;
-  }
+  width: 0.7em;
+  height: 0.7em;
+}
   .mochila {
     display: none;
   }
@@ -251,5 +251,9 @@ html {
     width: 17px;
     height: 11px;
     font-size: 6px;
+  }
+  html {
+    width: 100%;
+    height: 100%;
   }
 }
