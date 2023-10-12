@@ -200,7 +200,10 @@ function botaoDeleta(id) {
 
     if (estado.pagina == 1 && maxItens.children.length == 1) {
       deletaElemento(this.parentNode, id);
-      estado.pagina++;
+      pagina++;
+    }
+    else if (estado.pagina == 1 && maxItens.children.length > 1) {
+      deletaElemento(this.parentNode, id);
     }
     if (maxItens.children.length == 5 && estadosalvo > estado.pagina) {
       deletaElemento(this.parentNode, id); //Se colocar só o this é removido o botão e não a tag em si
