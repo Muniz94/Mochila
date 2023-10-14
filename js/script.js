@@ -2,7 +2,6 @@ const form = document.getElementById('novoItem'); // "pega" o elemento
 const lista = document.getElementById('lista');
 const itens = JSON.parse(localStorage.getItem('itens')) || []; // parse transforma texto em JSON
 var PgCompleta = false;
-var estadosalvo = 1;
 const maxItens = document.querySelector('#lista');
 var arredondadoParaBaixo;
 
@@ -12,11 +11,11 @@ const html = {
   }
 };
 
-let ItensPorPagina = 5;
+let ItensPorPagina = 3;
 const estado = {
   pagina: 1,
   ItensPorPagina,
-  totalPaginas: 50 / ItensPorPagina
+  totalPaginas: 9 / ItensPorPagina
 };
 
 const controles = {
@@ -53,7 +52,7 @@ const controles = {
     });
 
     html.get('.ultimo').addEventListener('click', () => {
-      arredondadoParaBaixo = Math.floor(itens.length / 5);
+      arredondadoParaBaixo = Math.floor(itens.length / estado.ItensPorPagina);
       controles.IrPara(arredondadoParaBaixo + 1);
       atualiza();
     });
@@ -64,7 +63,7 @@ const controles = {
     });
 
     html.get('.prox').addEventListener('click', () => {
-      if (maxItens.children.length == 5) {
+      if (maxItens.children.length == estado.ItensPorPagina) {
         controles.proximo();
         atualiza();
       }
@@ -77,10 +76,6 @@ const list = {
     let pagina = estado.pagina - 1;
     let inicio = pagina * estado.ItensPorPagina;
     let fim = inicio + estado.ItensPorPagina;
-
-    arredondadoParaBaixo = Math.floor(itens.length / 5);
-    if (itens.length / 5 != 0) estadosalvo = arredondadoParaBaixo + 1;
-    else estadosalvo = arredondadoParaBaixo;
 
     const itensPaginados = itens.slice(inicio, fim);
     itensPaginados.forEach(elemento => {
@@ -126,13 +121,18 @@ form.addEventListener('submit', evento => {
     return;
   }
 
-  if (maxItens.children.length == 5) {
+  if (maxItens.children.length == estado.ItensPorPagina) {
     PgCompleta = true;
     estado.pagina++;
   }
-  arredondadoParaBaixo = Math.floor(itens.length / 5);
-  estado.pagina = arredondadoParaBaixo + 1;
+  if (itens.length == estado.ItensPorPagina * estado.totalPaginas){
+    PgCompleta = false;
+    estado.pagina--;
+    alert("A mochila está cheia...");
+  }
   if (PgCompleta == true) {
+    arredondadoParaBaixo = Math.floor(itens.length / estado.ItensPorPagina);
+    estado.pagina = arredondadoParaBaixo + 1;
     html.get('.lista').innerHTML = '';
     list.criar();
     atualiza();
@@ -154,11 +154,14 @@ form.addEventListener('submit', evento => {
 
     itens[itens.findIndex(elemento => elemento.id === existe.id)] = itemAtual; // caso o conteúdo já exista no array, troco o conteúdo no mesmo e salvo no localStorage
   } else {
-    itemAtual.id = itens[itens.length - 1] ? itens[itens.length - 1].id + 1 : 0;
+      if (maxItens.children.length < estado.ItensPorPagina) {
 
-    criaElemento(itemAtual);
+        itemAtual.id = itens[itens.length - 1] ? itens[itens.length - 1].id + 1 : 0;
 
-    itens.push(itemAtual);
+        criaElemento(itemAtual);
+
+        itens.push(itemAtual);
+      }
   }
 
   localStorage.setItem('itens', JSON.stringify(itens)); // stringify transforma JSON em texto
@@ -198,30 +201,15 @@ function botaoDeleta(id) {
   elementoBotao.addEventListener('click', function () {
     // não pode ser arrowFuction pois essa não tem o this e não é possível saber o elemento clicado
 
-    if (estado.pagina == 1 && maxItens.children.length == 1) {
+    if (itens.length > estado.ItensPorPagina) {
       deletaElemento(this.parentNode, id);
-      pagina++;
-    }
-    else if (estado.pagina == 1 && maxItens.children.length > 1) {
+      if (maxItens.children.length == 0 && estado.pagina != 1) {
+        estado.pagina--;
+        atualiza();
+      }
+      atualiza();
+    } else {
       deletaElemento(this.parentNode, id);
-    }
-    if (maxItens.children.length == 5 && estadosalvo > estado.pagina) {
-      deletaElemento(this.parentNode, id); //Se colocar só o this é removido o botão e não a tag em si
-      atualiza();
-    } else if (maxItens.children.length == 5 && estadosalvo == estado.pagina) {
-      deletaElemento(this.parentNode, id); //Se colocar só o this é removido o botão e não a tag em si
-      atualiza();
-    } else if (maxItens.children.length == 1 && estadosalvo == estado.pagina) {
-      deletaElemento(this.parentNode, id); //Se colocar só o this é removido o botão e não a tag em si
-      estado.pagina--;
-      atualiza();
-    } else if (
-      maxItens.children.length > 1 &&
-      maxItens.children.length <= 4 &&
-      estadosalvo == estado.pagina
-    ) {
-      deletaElemento(this.parentNode, id); //Se colocar só o this é removido o botão e não a tag em si
-      atualiza();
     }
   });
 
