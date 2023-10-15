@@ -93,6 +93,7 @@ function inicio() {
   list.atualiza();
   controles.criarListeners();
   html.get('.numeros').innerHTML = `${estado.pagina}`;
+  
 }
 
 function atualiza() {
@@ -114,28 +115,11 @@ form.addEventListener('submit', evento => {
     alert('Digite um nome!');
     nome.focus();
     return;
-  } else if (quantidade.value == '') {
+  } else if (quantidade.value == '' || Math.sign(quantidade.value) != 1) {
     quantidade.value = '';
     alert('Digite uma quantidade!');
     quantidade.focus();
     return;
-  }
-
-  if (maxItens.children.length == estado.ItensPorPagina) {
-    PgCompleta = true;
-    estado.pagina++;
-  }
-  if (itens.length == estado.ItensPorPagina * estado.totalPaginas){
-    PgCompleta = false;
-    estado.pagina--;
-    alert("A mochila está cheia...");
-  }
-  if (PgCompleta == true) {
-    arredondadoParaBaixo = Math.floor(itens.length / estado.ItensPorPagina);
-    estado.pagina = arredondadoParaBaixo + 1;
-    html.get('.lista').innerHTML = '';
-    list.criar();
-    atualiza();
   }
 
   const existe = itens.find(
@@ -154,13 +138,28 @@ form.addEventListener('submit', evento => {
 
     itens[itens.findIndex(elemento => elemento.id === existe.id)] = itemAtual; // caso o conteúdo já exista no array, troco o conteúdo no mesmo e salvo no localStorage
   } else {
-      if (maxItens.children.length < estado.ItensPorPagina) {
+      if (itens.length != estado.ItensPorPagina * estado.totalPaginas) {
+
+        if (maxItens.children.length == estado.ItensPorPagina) {
+          PgCompleta = true;
+          estado.pagina++;
+        }
+        if (PgCompleta == true) {
+          arredondadoParaBaixo = Math.floor(itens.length / estado.ItensPorPagina);
+          estado.pagina = arredondadoParaBaixo + 1;
+          html.get('.lista').innerHTML = '';
+          list.criar();
+          atualiza();
+        }
 
         itemAtual.id = itens[itens.length - 1] ? itens[itens.length - 1].id + 1 : 0;
 
         criaElemento(itemAtual);
 
         itens.push(itemAtual);
+      }
+      if (itens.length == estado.ItensPorPagina * estado.totalPaginas){
+        alert("A mochila está cheia...");
       }
   }
 
