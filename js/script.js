@@ -3,7 +3,6 @@ const lista = document.getElementById('lista');
 const itens = JSON.parse(localStorage.getItem('itens')) || []; // parse transforma texto em JSON
 var PgCompleta = false;
 const maxItens = document.querySelector('#lista');
-var arredondadoParaBaixo;
 
 const html = {
   get(elemento) {
@@ -52,8 +51,7 @@ const controles = {
     });
 
     html.get('.ultimo').addEventListener('click', () => {
-      arredondadoParaBaixo = Math.floor(itens.length / estado.ItensPorPagina);
-      controles.IrPara(arredondadoParaBaixo + 1);
+      controles.IrPara(Math.ceil(itens.length / estado.ItensPorPagina));
       atualiza();
     });
 
@@ -134,6 +132,11 @@ form.addEventListener('submit', evento => {
   if (existe) {
     itemAtual.id = existe.id;
 
+    if ((itens.indexOf(existe) + 1) % estado.ItensPorPagina != 0) {
+      estado.pagina = Math.ceil((itens.indexOf(existe) + 1) / estado.ItensPorPagina);
+      atualiza();
+    }
+      
     atualizaElemento(itemAtual);
 
     itens[itens.findIndex(elemento => elemento.id === existe.id)] = itemAtual; // caso o conteúdo já exista no array, troco o conteúdo no mesmo e salvo no localStorage
@@ -158,7 +161,7 @@ form.addEventListener('submit', evento => {
 
         itens.push(itemAtual);
       }
-      if (itens.length == estado.ItensPorPagina * estado.totalPaginas){
+      else {
         alert("A mochila está cheia...");
       }
   }
@@ -190,7 +193,7 @@ function criaElemento(item) {
 
 function atualizaElemento(item) {
   document.querySelector("[data-id='" + item.id + "']").innerHTML =
-    item.quantidade;
+  item.quantidade;
 }
 
 function botaoDeleta(id) {
