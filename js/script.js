@@ -134,8 +134,10 @@ form.addEventListener('submit', evento => {
 
     if ((itens.indexOf(existe) + 1) % estado.ItensPorPagina != 0) {
       estado.pagina = Math.ceil((itens.indexOf(existe) + 1) / estado.ItensPorPagina);
-      atualiza();
+    } else {
+      estado.pagina = Math.trunc((itens.indexOf(existe) + 1) / estado.ItensPorPagina);
     }
+    atualiza();
       
     atualizaElemento(itemAtual);
 
@@ -148,8 +150,6 @@ form.addEventListener('submit', evento => {
           estado.pagina++;
         }
         if (PgCompleta == true) {
-          arredondadoParaBaixo = Math.floor(itens.length / estado.ItensPorPagina);
-          estado.pagina = arredondadoParaBaixo + 1;
           html.get('.lista').innerHTML = '';
           list.criar();
           atualiza();
