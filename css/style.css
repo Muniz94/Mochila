@@ -13,6 +13,7 @@ html {
 
 .principal {
   flex-grow: 1;
+  flex-basis: auto;
   padding: 4em 2em 2em;
   box-sizing: border-box;
   display: flex;
@@ -219,23 +220,37 @@ html {
   background: #cca16a;
 }
 
-/*media queries*/
-/* @media (max-width: 768px) and (min-width: 320px){
+ @media (max-width: 835px){
   .item {
     font-size: 0.5em;
   }
   .item strong {
-    width: 20px;
-    height: 20px;
+    width: 1.5em;
+    height: 1.5em;
+  }
+  .principal {
+    padding: 0.3em 0.3em 0.3em;
+  }
+  .conteudo {
+    padding: 1vh 0 0;
+    gap: 0.2em; 
+  }
+  .adicionar input {
+    margin: 0.1em 0 0.3em;
+    padding: 1em 0.5em;
+  }
+  
+  .adicionar label {
+    font-size: 0.3em;
   }
   #novoItem label {
-    font-size: 0.7em;
+    font-size: 0.9em;
   }
   #novoItem input {
-    font-size: 0.5em;
+    font-size: 0.7em;
   }
   #novoItem .paginacao div{
-    font-size: 0.8em;
+    font-size: 1.2em;
   }
   #novoItem .paginacao div:not(.numeros),
   #novoItem .paginacao div.numeros div {
@@ -246,9 +261,9 @@ html {
     display: none;
   }
   .item button {
-    width: 17px;
-    height: 11px;
-    font-size: 6px;
+    width: 2.5em;
+    height: 2em;
+    font-size: 0.9em;
   }
   html {
     width: 100%;
@@ -256,33 +271,16 @@ html {
   }
 }
 
-@media (min-width: 1600px){
-  .item {
-    font-size: 2.5em;
+@media (min-width: 1600px) {
+  body {
+    display: flex;
+    justify-content: center;
   }
-  .item strong {
-    width: 50px;
-    height: 50px;
+  .conteudo {
+    padding: 0 0 0;
+    gap: 1em;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
   }
-  #novoItem label {
-    font-size: 2em;
-  }
-  #novoItem input {
-    font-size: 1.5em;
-  }
-  #novoItem .paginacao div{
-    font-size: 3.3em;
-  }
-  .mochila {
-    display: none;
-  }
-  .item button {
-    width: 50px;
-    height: 50px;
-    font-size: 45px;
-  }
-  html {
-    width: 100%;
-    height: 100%;
-  }
-} */
+}
