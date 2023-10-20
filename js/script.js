@@ -138,10 +138,15 @@ form.addEventListener('submit', evento => {
       estado.pagina = Math.trunc((itens.indexOf(existe) + 1) / estado.ItensPorPagina);
     }
     atualiza();
-      
-    atualizaElemento(itemAtual);
 
-    itens[itens.findIndex(elemento => elemento.id === existe.id)] = itemAtual; // caso o conteúdo já exista no array, troco o conteúdo no mesmo e salvo no localStorage
+    resposta = confirm(`Tem certeza de que quer atualizar o item '${existe.nome}' de quantidade '${existe.quantidade}' ?`);
+      
+    if (resposta) {
+      atualizaElemento(itemAtual);
+
+      itens[itens.findIndex(elemento => elemento.id === existe.id)] = itemAtual; // caso o conteúdo já exista no array, troco o conteúdo no mesmo e salvo no localStorage
+    }
+    
   } else {
       if (itens.length != estado.ItensPorPagina * estado.totalPaginas) {
 
@@ -193,7 +198,7 @@ function criaElemento(item) {
 
 function atualizaElemento(item) {
   let stron = document.querySelector("[data-id='" + item.id + "']");
-  stron.style.cssText = 'background: #40112d;' + 'color: white;'
+  stron.style.cssText = 'animation: psi 4s;'
   stron.innerHTML =
   item.quantidade;
 }
