@@ -192,7 +192,9 @@ function criaElemento(item) {
 }
 
 function atualizaElemento(item) {
-  document.querySelector("[data-id='" + item.id + "']").innerHTML =
+  let stron = document.querySelector("[data-id='" + item.id + "']");
+  stron.style.cssText = 'background: #40112d;' + 'color: white;'
+  stron.innerHTML =
   item.quantidade;
 }
 
