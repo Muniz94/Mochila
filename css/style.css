@@ -206,6 +206,13 @@ html {
   font-size: 1.5em;
 }
 
+@keyframes psi {
+  50% {
+    color: white;
+    background-color: #40112d;
+  }
+}
+
 #novoItem .paginacao div:not(.numeros),
 #novoItem .paginacao div.numeros div {
   width: 2em;
