@@ -7,7 +7,7 @@ Projeto para adicionar ou remover itens em uma mochila de viagem usando HTML, CS
 Na Mochila de viagem é possível adicionar, um item e a quantidade, caso o usuário se esqueça de digitar um dos dois(ou digite um valor inválido) 
 uma mensagem será apresentada. Também é possível remover um item ou atualizar a quantidade de determinado item.
 
-![Gif da aplicação rodando](https://github.com/Muniz94/Mochila/assets/145066504/e33cccb7-f015-4f90-a008-d4f27464855a)
+![Gif da aplicação rodando](https://github.com/Muniz94/Mochila/assets/145066504/6f30bec6-4d3a-423a-a99d-866d7f1fe501)
 # ✔️ Técnicas e tecnologias utilizadas
 - HTML: A partir do html foi possível inserir as tags `form`, `div`, `input`; para poder criar os componentes na tela.
 - CSS: Com o css foi possível fazer o desenho da mochila, estilizar cores, tamanhos e formas, além de ajustar a responsividade do
